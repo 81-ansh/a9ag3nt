@@ -310,18 +310,16 @@ class BaseWindow(QMainWindow):
     
     def set_main_content(self, widget: QWidget):
         """Set the main content widget"""
-        # Clear existing content
+        # Check if there is an existing widget, if yes, remove it
         if self.main_content.layout():
             while self.main_content.layout().count():
                 child = self.main_content.layout().takeAt(0)
                 if child.widget():
-                    child.widget().deleteLater()
-        else:
-            layout = QVBoxLayout(self.main_content)
-            layout.setContentsMargins(0, 0, 0, 0)
-        
+                    child.widget().setParent(None)  # Unset the parent to prevent deletion
+                    
         # Add new content
         self.main_content.layout().addWidget(widget)
+        
     
     def show_loading(self, message: str = "Loading..."):
         """Show loading indicator in main content"""
