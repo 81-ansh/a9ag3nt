@@ -1,0 +1,6 @@
+2025-07-16 13:47:53,789 - database.db_manager - INFO - Database connection pool created successfully
+2025-07-16 13:47:53,790 - __main__ - INFO - Database connection established successfully
+2025-07-16 13:48:27,858 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=jsCLREjT51wfgoC5EknsPQ==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 13:48:27,859 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=jsCLREjT51wfgoC5EknsPQ==).
+[WinError 10061] No connection could be made because the target machine actively refused it
