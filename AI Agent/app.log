@@ -74,3 +74,23 @@ cws2025-07-16 12:50:54,013 - database.db_manager - INFO - Database connection po
 [Errno 111] Connection refused
 2025-07-16 13:24:32,025 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=QwNqN9o4ucpo3FB4rGmr6g==).
 [Errno 111] Connection refused
+2025-07-16 13:25:02,040 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=6AwdRCYC2GUP9KLGLCvpww==).
+[Errno 111] Connection refused
+2025-07-16 13:25:02,041 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=6AwdRCYC2GUP9KLGLCvpww==).
+[Errno 111] Connection refused
+2025-07-16 13:25:32,021 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=E+IOrShrtOf14zMWetObOg==).
+[Errno 111] Connection refused
+2025-07-16 13:25:32,021 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=E+IOrShrtOf14zMWetObOg==).
+[Errno 111] Connection refused
+2025-07-16 13:26:02,022 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=uvnXhmMTdMcNihT969bVoA==).
+[Errno 111] Connection refused
+2025-07-16 13:26:02,022 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=uvnXhmMTdMcNihT969bVoA==).
+[Errno 111] Connection refused
+2025-07-16 13:26:32,021 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=VutPMVYvubMUy1L8e4DydA==).
+[Errno 111] Connection refused
+2025-07-16 13:26:32,021 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=VutPMVYvubMUy1L8e4DydA==).
+[Errno 111] Connection refused
+2025-07-16 13:27:02,022 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=oUtSfr6mNaX5bKdh6A8rkw==).
+[Errno 111] Connection refused
+2025-07-16 13:27:02,023 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=oUtSfr6mNaX5bKdh6A8rkw==).
+[Errno 111] Connection refused
