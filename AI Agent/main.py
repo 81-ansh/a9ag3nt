@@ -82,7 +82,7 @@ class MainApplication(BaseWindow):
         except Exception as e:
             self.logger.error(f"AI setup error: {e}")
 
-    def setup_navigation(self):
+    def setup_navigation(self): 
         self.navigate_to_dashboard.connect(lambda: self.navigate("dashboard"))
         self.navigate_to_ai_assistant.connect(lambda: self.navigate("ai_assistant"))
         self.navigate_to_consolidation.connect(lambda: self.navigate("consolidation"))  # Alias

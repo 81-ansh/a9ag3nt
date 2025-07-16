@@ -24,4 +24,4 @@ Thumbs.db
 *.core
 .qt*
 
-*.log
+app.log
