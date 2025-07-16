@@ -100,3 +100,37 @@ cws2025-07-16 12:50:54,013 - database.db_manager - INFO - Database connection po
 2025-07-16 16:25:05,734 - database.db_manager - INFO - Database connection pool created successfully
 2025-07-16 16:25:05,735 - __main__ - INFO - Database connection established successfully
 2025-07-16 16:25:05,735 - __main__ - INFO - AI Agent initialized successfully
+2025-07-16 16:29:51,856 - database.db_manager - INFO - Database connection pool created successfully
+2025-07-16 16:29:51,857 - __main__ - INFO - Database connection established successfully
+2025-07-16 16:29:51,857 - __main__ - INFO - AI Agent initialized successfully
+2025-07-16 16:30:14,407 - database.db_manager - INFO - Database connection pool created successfully
+2025-07-16 16:30:14,408 - __main__ - INFO - Database connection established successfully
+2025-07-16 16:30:14,408 - __main__ - INFO - AI Agent initialized successfully
+2025-07-16 16:31:19,303 - database.db_manager - INFO - Database connection pool created successfully
+2025-07-16 16:31:19,303 - __main__ - INFO - Database connection established successfully
+2025-07-16 16:31:19,304 - __main__ - INFO - AI Agent initialized successfully
+2025-07-16 16:31:41,300 - database.db_manager - INFO - Database connection pool created successfully
+2025-07-16 16:31:41,301 - __main__ - INFO - Database connection established successfully
+2025-07-16 16:31:41,301 - __main__ - INFO - AI Agent initialized successfully
+2025-07-16 16:32:13,880 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=WOuJo2KSDutOxTevUXEVJg==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 16:32:13,881 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=WOuJo2KSDutOxTevUXEVJg==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 16:32:44,045 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=aEj8+YzmOgvjFZW7wam+1w==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 16:32:44,046 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=aEj8+YzmOgvjFZW7wam+1w==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 16:35:11,023 - database.db_manager - INFO - Database connection pool created successfully
+2025-07-16 16:35:11,023 - __main__ - INFO - Database connection established successfully
+2025-07-16 16:35:11,024 - __main__ - INFO - AI Agent initialized successfully
+2025-07-16 16:35:43,223 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=IuoqJYW1DWU3cNmV9SBwvw==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 16:35:43,224 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=IuoqJYW1DWU3cNmV9SBwvw==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 16:36:13,272 - database.db_manager - ERROR - Database operation failed: DPY-6005: cannot connect to database (CONNECTION_ID=7659azGMEUFbDjusjGSxPQ==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 16:36:13,273 - database.db_manager - ERROR - Connection test failed: DPY-6005: cannot connect to database (CONNECTION_ID=7659azGMEUFbDjusjGSxPQ==).
+[WinError 10061] No connection could be made because the target machine actively refused it
+2025-07-16 16:37:57,045 - database.db_manager - INFO - Database connection pool created successfully
+2025-07-16 16:37:57,046 - __main__ - INFO - Database connection established successfully
+2025-07-16 16:37:57,046 - __main__ - INFO - AI Agent initialized successfully
