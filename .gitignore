@@ -1,3 +1,6 @@
+# environment files
+.env
+
 # Python bytecode files
 *.pyc
 __pycache__
@@ -9,7 +12,6 @@ myenv/
 # IDE files
 .vscode/
 .idea/
-.env
 
 # System files
 .DS_Store
