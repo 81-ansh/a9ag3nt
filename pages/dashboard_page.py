@@ -19,6 +19,7 @@ class DashboardPage(QWidget):
         # --- Header Frame (Title + Buttons on same row) ---
         header_frame = QFrame()
         header_frame.setMaximumHeight(100)
+        header_frame.setStyleSheet("background-color: transparent")
         header_layout = QHBoxLayout(header_frame)
         header_layout.setContentsMargins(20, 20, 20, 20)
         header_layout.setSpacing(20)
@@ -36,7 +37,6 @@ class DashboardPage(QWidget):
 
         text_layout.addWidget(title)
         text_layout.addWidget(subtitle)
-
 
         # --- Right: Buttons ---
         button_layout = QHBoxLayout()
@@ -60,7 +60,7 @@ class DashboardPage(QWidget):
             }
         """)
 
-        # --- Run Consolidation Button ---
+        # Run Consolidation Button
         run_btn = QPushButton("Run Consolidation")
         run_btn.setMinimumSize(160, 45)
         run_btn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -100,117 +100,37 @@ class DashboardPage(QWidget):
         run_btn.enterEvent = enterEvent
         run_btn.leaveEvent = leaveEvent
 
-        # --- Centered container for run_btn ---
+        # Centered frame for run_btn
         run_btn_frame = QFrame()
-        run_btn_frame.setFixedSize(200, 65)  # extra room for animation
-        run_btn_frame.setStyleSheet("border: 1px solid red")  # or dashed for debug
+        run_btn_frame.setFixedSize(200, 65)
+        run_btn_frame.setStyleSheet("border: 0px")
+        run_btn_frame.setContentsMargins(0, -5, 0, 0)
 
         run_btn_layout = QVBoxLayout(run_btn_frame)
         run_btn_layout.setContentsMargins(0, 0, 0, 0)
         run_btn_layout.setAlignment(Qt.AlignCenter)
         run_btn_layout.addWidget(run_btn)
 
-        # --- Add buttons to layout ---
+        # Add buttons
         button_layout.addWidget(new_entity_btn)
         button_layout.addWidget(run_btn_frame)
 
-
-        # Add to header layout
+        # Add to header
         header_layout.addLayout(text_layout)
         header_layout.addStretch()
         header_layout.addLayout(button_layout)
         main_layout.addWidget(header_frame)
 
-
-
-        # KPI Cards
-        self.kpi_layout = QHBoxLayout()
-        self.kpi_layout.setSpacing(20)
-
-        self.kpi1 = self.create_kpi_card("Total Revenue", "$-", "+0%", True)
-        self.kpi2 = self.create_kpi_card("Active Entities", "-", "+0", True)
-        self.kpi3 = self.create_kpi_card("Consolidations", "-", "+0%", True)
-        self.kpi4 = self.create_kpi_card("Users", "-", "-0%", False)
-
-        for kpi in [self.kpi1, self.kpi2, self.kpi3, self.kpi4]:
-            self.kpi_layout.addWidget(kpi)
-
-        main_layout.addLayout(self.kpi_layout)
-
-        # DB status label (dev/debug)
+        # --- DB Status Label ---
         self.status_label = QLabel("Loading database stats...")
-        self.status_label.setStyleSheet("color: gray;")
+        self.status_label.setStyleSheet("color: gray; margin-left: 20px;")
         main_layout.addWidget(self.status_label)
-
-    def create_kpi_card(self, title, value, change, is_positive=True):
-        card = QFrame()
-        card.setStyleSheet("background-color: white; border-radius: 10px; padding: 10px;")
-        card.setFixedHeight(100)
-        layout = QVBoxLayout(card)
-        layout.setSpacing(4)
-
-        title_label = QLabel(title)
-        title_label.setFont(QFont("Segoe UI", 10))
-        value_label = QLabel(value)
-        value_label.setFont(QFont("Segoe UI", 18, QFont.Bold))
-        change_label = QLabel(change)
-        change_label.setFont(QFont("Segoe UI", 10))
-        change_label.setStyleSheet(f"color: {'green' if is_positive else 'red'};")
-
-        layout.addWidget(title_label)
-        layout.addWidget(value_label)
-        layout.addWidget(change_label)
-        return card
-
-    def create_recent_activity(self):
-        panel = QFrame()
-        panel.setStyleSheet("background-color: white; border-radius: 10px;")
-        layout = QVBoxLayout(panel)
-        layout.setContentsMargins(15, 15, 15, 15)
-        layout.setSpacing(10)
-
-        header = QLabel("Recent Activity")
-        header.setFont(QFont("Segoe UI", 14, QFont.Bold))
-        layout.addWidget(header)
-
-        activities = [
-            ("🟢", "Consolidation completed", "ABC Corp Q4 2024", "2 minutes ago"),
-            ("🔵", "AI Analysis ready", "XYZ Holdings variance report", "15 minutes ago"),
-            ("🟢", "New entity added", "Global Tech Ltd", "1 hour ago"),
-            ("🟡", "Data sync failed", "Regional Sales Inc", "2 hours ago"),
-        ]
-        for icon, title, desc, time in activities:
-            label = QLabel(f"{icon} <b>{title}</b><br><span style='color:gray'>{desc}</span> – {time}")
-            label.setWordWrap(True)
-            layout.addWidget(label)
-
-        return panel
-
-    def create_quick_actions(self):
-        panel = QFrame()
-        panel.setStyleSheet("background-color: white; border-radius: 10px;")
-        layout = QVBoxLayout(panel)
-        layout.setContentsMargins(15, 15, 15, 15)
-        layout.setSpacing(10)
-
-        header = QLabel("Quick Actions")
-        header.setFont(QFont("Segoe UI", 14, QFont.Bold))
-        layout.addWidget(header)
-
-        actions = ["Add New Entity", "Start Consolidation", "View Analytics", "Manage Users"]
-        for action in actions:
-            btn = QPushButton(action)
-            btn.setStyleSheet("background-color: yellow; padding: 10px; font-weight: bold;")
-            layout.addWidget(btn)
-
-        return panel
 
     def refresh(self):
         if self.db:
             try:
-                tables_count = self.db.fetch_one("SELECT COUNT(*) FROM all_tables")[0]
-                self.kpi2.findChild(QLabel, "").setText(str(tables_count))  # Entity KPI
-                self.status_label.setText(f"Total Tables in DB: {tables_count}")
+                row = self.db.fetch_one("SELECT COUNT(*) FROM all_tables")
+                self.status_label.setText(f"Total Tables in DB: {row[0]}")
             except Exception as e:
                 self.status_label.setText(f"Error fetching DB data: {e}")
 
