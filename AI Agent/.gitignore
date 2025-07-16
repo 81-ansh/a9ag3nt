@@ -9,6 +9,7 @@ myenv/
 # IDE files
 .vscode/
 .idea/
+.env
 
 # System files
 .DS_Store

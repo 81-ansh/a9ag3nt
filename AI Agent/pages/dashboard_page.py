@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QPushButton, QFrame
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QPushButton, QFrame, QSizePolicy
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt, QSize, QPropertyAnimation, QEasingCurve
 
@@ -37,6 +37,7 @@ class DashboardPage(QWidget):
         text_layout.addWidget(title)
         text_layout.addWidget(subtitle)
 
+
         # --- Right: Buttons ---
         button_layout = QHBoxLayout()
         button_layout.setSpacing(10)
@@ -59,10 +60,10 @@ class DashboardPage(QWidget):
             }
         """)
 
-        # Run Consolidation Button
+        # --- Run Consolidation Button ---
         run_btn = QPushButton("Run Consolidation")
-        run_btn.setFixedHeight(45)
-        run_btn.setMinimumWidth(160)  # starting size
+        run_btn.setMinimumSize(160, 45)
+        run_btn.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         run_btn.setStyleSheet("""
             QPushButton {
                 background-color: #09173f;
@@ -75,20 +76,18 @@ class DashboardPage(QWidget):
                 background-color: #09173f;
             }
         """)
-        #Animation Function
+
+        # Animate on hover
         def animate_button(button, grow=True):
             anim = QPropertyAnimation(button, b"minimumSize")
             anim.setDuration(150)
             anim.setEasingCurve(QEasingCurve.OutCubic)
-
-            current_size = button.size()
             if grow:
-                anim.setEndValue(QSize(current_size.width() + 20, current_size.height() + 4))
+                anim.setEndValue(QSize(180, 55))
             else:
-                anim.setEndValue(QSize(160, 45))  # original size
-
+                anim.setEndValue(QSize(160, 45))
             anim.start()
-            button._anim = anim  # prevent garbage collection
+            button._anim = anim  # keep reference
 
         def enterEvent(event):
             animate_button(run_btn, grow=True)
@@ -101,18 +100,28 @@ class DashboardPage(QWidget):
         run_btn.enterEvent = enterEvent
         run_btn.leaveEvent = leaveEvent
 
+        # --- Centered container for run_btn ---
+        run_btn_frame = QFrame()
+        run_btn_frame.setFixedSize(200, 65)  # extra room for animation
+        run_btn_frame.setStyleSheet("border: 1px solid red")  # or dashed for debug
 
+        run_btn_layout = QVBoxLayout(run_btn_frame)
+        run_btn_layout.setContentsMargins(0, 0, 0, 0)
+        run_btn_layout.setAlignment(Qt.AlignCenter)
+        run_btn_layout.addWidget(run_btn)
 
-        # Add to layout
+        # --- Add buttons to layout ---
         button_layout.addWidget(new_entity_btn)
-        button_layout.addWidget(run_btn)
+        button_layout.addWidget(run_btn_frame)
 
-        # --- Assemble header layout ---
+
+        # Add to header layout
         header_layout.addLayout(text_layout)
         header_layout.addStretch()
         header_layout.addLayout(button_layout)
-
         main_layout.addWidget(header_frame)
+
+
 
         # KPI Cards
         self.kpi_layout = QHBoxLayout()
