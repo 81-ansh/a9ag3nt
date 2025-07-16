@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QPushButton, QFrame
 from PySide6.QtGui import QFont
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QSize, QPropertyAnimation, QEasingCurve
 
 class DashboardPage(QWidget):
     def __init__(self, main_window):
@@ -14,56 +14,103 @@ class DashboardPage(QWidget):
 
     def init_ui(self):
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(20, 20, 20, 20)
+        main_layout.setContentsMargins(0, 0, 0, 0)
 
-        # --- Header Frame (Title + Buttons + Subtitle) ---
+        # --- Header Frame (Title + Buttons on same row) ---
         header_frame = QFrame()
-        header_layout = QVBoxLayout(header_frame)
-        header_layout.setContentsMargins(0, 0, 0, 0)
-        header_frame.setStyleSheet("background-color: red;")
         header_frame.setMaximumHeight(100)
-        header_layout.setSpacing(4)
+        header_layout = QHBoxLayout(header_frame)
+        header_layout.setContentsMargins(20, 20, 20, 20)
+        header_layout.setSpacing(20)
 
-        # --- Top Row: Title + Buttons ---
-        title_row = QHBoxLayout()
-        title_row.setContentsMargins(0, 0, 0, 0)
+        # --- Left: Title + Subtitle ---
+        text_layout = QVBoxLayout()
+        text_layout.setSpacing(2)
 
         title = QLabel("Dashboard")
         title.setFont(QFont("Segoe UI", 24, QFont.Bold))
         title.setStyleSheet("color: #000000;")
 
-        title_row.addWidget(title)
-        title_row.addStretch()
-
-        # Buttons: New Entity + Run Consolidation
-        new_entity_btn = QPushButton("New Entity")
-        run_btn = QPushButton("Run Consolidation")
-
-        for btn in [new_entity_btn, run_btn]:
-            btn.setFixedHeight(36)
-            btn.setStyleSheet("""
-                QPushButton {
-                    background-color: #ffd43b;
-                    color: black;
-                    font-weight: bold;
-                    padding: 6px 16px;
-                    border-radius: 6px;
-                }
-                QPushButton:hover {
-                    background-color: #ffcc00;
-                }
-            """)
-
-        title_row.addWidget(new_entity_btn)
-        title_row.addWidget(run_btn)
-
-        # --- Bottom Row: Subtitle ---
         subtitle = QLabel("Welcome back! Here's your financial overview.")
-        subtitle.setStyleSheet("color: #555555; font-size: 13px;")
+        subtitle.setStyleSheet("color: #555555; font-size: 15px;")
 
-        # Combine into header layout
-        header_layout.addLayout(title_row)
-        header_layout.addWidget(subtitle)
+        text_layout.addWidget(title)
+        text_layout.addWidget(subtitle)
+
+        # --- Right: Buttons ---
+        button_layout = QHBoxLayout()
+        button_layout.setSpacing(10)
+
+        # New Entity Button
+        new_entity_btn = QPushButton("New Entity")
+        new_entity_btn.setFixedHeight(45)
+        new_entity_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #ffffff;
+                color: black;
+                font-weight: bold;
+                padding: 6px 16px;
+                border-radius: 6px;
+                border: 1px solid #cccccc;
+            }
+            QPushButton:hover {
+                background-color: #36d399;
+                color: #ffffff;
+            }
+        """)
+
+        # Run Consolidation Button
+        run_btn = QPushButton("Run Consolidation")
+        run_btn.setFixedHeight(45)
+        run_btn.setMinimumWidth(160)  # starting size
+        run_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #09173f;
+                color: #ffffff;
+                font-weight: bold;
+                padding: 6px 16px;
+                border-radius: 6px;
+            }
+            QPushButton:hover {
+                background-color: #09173f;
+            }
+        """)
+        #Animation Function
+        def animate_button(button, grow=True):
+            anim = QPropertyAnimation(button, b"minimumSize")
+            anim.setDuration(150)
+            anim.setEasingCurve(QEasingCurve.OutCubic)
+
+            current_size = button.size()
+            if grow:
+                anim.setEndValue(QSize(current_size.width() + 20, current_size.height() + 4))
+            else:
+                anim.setEndValue(QSize(160, 45))  # original size
+
+            anim.start()
+            button._anim = anim  # prevent garbage collection
+
+        def enterEvent(event):
+            animate_button(run_btn, grow=True)
+            return QPushButton.enterEvent(run_btn, event)
+
+        def leaveEvent(event):
+            animate_button(run_btn, grow=False)
+            return QPushButton.leaveEvent(run_btn, event)
+
+        run_btn.enterEvent = enterEvent
+        run_btn.leaveEvent = leaveEvent
+
+
+
+        # Add to layout
+        button_layout.addWidget(new_entity_btn)
+        button_layout.addWidget(run_btn)
+
+        # --- Assemble header layout ---
+        header_layout.addLayout(text_layout)
+        header_layout.addStretch()
+        header_layout.addLayout(button_layout)
 
         main_layout.addWidget(header_frame)
 
